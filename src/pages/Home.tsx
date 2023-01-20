@@ -67,6 +67,7 @@ const MenuProps = {
 export default function Welcome() {
 
   const {
+    error,
     startRecording, 
     pauseRecording,
     stopRecording, 
@@ -106,6 +107,10 @@ export default function Welcome() {
     }
     return () => clearInterval(intervalId)
   }, [isRecording, counter])
+
+  React.useEffect(() => {
+    if(error) setIsRecording(false)
+  }, [error])
 
   const handleRecordingButton = () => {
     if(!isRecording){
@@ -171,7 +176,12 @@ export default function Welcome() {
             {`${minute} : ${second}`}
           </Typography>
           
-          { mediaBlobUrl && ( <audio src={mediaBlobUrl} controls loop />) }
+          { !error ? 
+            mediaBlobUrl && ( <audio src={mediaBlobUrl} controls loop />) : 
+            (<Typography component="h1" variant="h6" mt={1}>
+              {error}
+            </Typography>)
+          }
             <Typography mt={1} textAlign='center'>
               Convert Mode
             </Typography>
