@@ -138,7 +138,7 @@ export default function Welcome() {
     ).then((res: any) => {setConvertedVoice(res.data); setConverting(false)})
   }
 
-  const handleMultipleSelect: any = (event: SelectChangeEvent<typeof speaker>) => {
+  const handleMultipleSelect = (event: SelectChangeEvent<typeof speaker>) => {
     const {
       target: { value },
     } = event;
@@ -225,7 +225,7 @@ export default function Welcome() {
                 p: 1,
                 width: 200
               }}
-              disabled={!mediaBlobUrl}
+              disabled={!mediaBlobUrl || !speaker.length}
               loading={converting}
               loadingIndicator="Converting..."
               variant="contained"
