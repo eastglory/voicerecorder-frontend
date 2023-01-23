@@ -11,10 +11,13 @@ import Container from "@mui/material/Container";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
+import SaveIcon from '@mui/icons-material/Save';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import Chip from '@mui/material/Chip';
+import InputLabel from '@mui/material/InputLabel'
+import FormControl from '@mui/material/FormControl';
 import { useReactMediaRecorder } from "react-media-recorder"
 
 const speakers = [
@@ -185,35 +188,38 @@ export default function Welcome() {
             <Typography mt={1} textAlign='center'>
               Convert Mode
             </Typography>
-            <Select
-              sx={{
-                m: 1,
-                width:300
-              }}
-              labelId="demo-multiple-chip-label"
-              id="demo-multiple-chip"
-              multiple
-              value={speaker}
-              onChange={handleMultipleSelect}
-              input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-              renderValue={(selected) => (
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                  {selected.map((value) => (
-                    <Chip key={value} label={value} />
-                  ))}
-                </Box>
-              )}
-              MenuProps={MenuProps}
-            ><section></section>
-              {speakers.map((name) => (
-                <MenuItem
-                  key={name}
-                  value={name}
-                >
-                  {name}
-                </MenuItem>
-              ))}
-            </Select>
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel id="demo-simple-select-helper-label">Convert Mode</InputLabel>
+              <Select
+                sx={{
+                  m: 1,
+                  width:300
+                }}
+                labelId="demo-multiple-chip-label"
+                id="demo-multiple-chip"
+                multiple
+                value={speaker}
+                onChange={handleMultipleSelect}
+                input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                renderValue={(selected) => (
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                    {selected.map((value) => (
+                      <Chip key={value} label={value} />
+                    ))}
+                  </Box>
+                )}
+                MenuProps={MenuProps}
+              ><section></section>
+                {speakers.map((name) => (
+                  <MenuItem
+                    key={name}
+                    value={name}
+                  >
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <LoadingButton
               // fullWidth
               sx={{
@@ -227,7 +233,8 @@ export default function Welcome() {
               }}
               disabled={!mediaBlobUrl || !speaker.length}
               loading={converting}
-              loadingIndicator="Converting..."
+              // loadingPosition="start"
+              // startIcon={<SaveIcon />}
               variant="contained"
               onClick={handleConvertButton}
             >
